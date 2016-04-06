@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="http://123.56.89.145/docs/markdown_res/bootstrap/css/bootstrap.min.css" media="all"/>
+    <link rel="stylesheet" type="text/css" href="http://123.56.89.145/docs/markdown_res/bootstrap/css/bootstrap-theme.min.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="http://123.56.89.145/docs/markdown_res/css/github-markdown.css" media="all" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <style type="text/css" media="all">
+
+img {max-width: 100%; }
+pre, code {color: #048ebd; }
+li>p {display: block;}
+p>code, li>code {font-size: 13px; color: red;}
+blockquote {display:block; border-left: 4px solid #abc; margin: 30px 0; padding: 11px 20px 1px;}
+ul, ol{margin-left: 10px;}
+ul ul,
+ul ol,
+ol ol,
+ol ul{margin-left: 30px;}
+
+.markdown-body {
+    margin: 40px 0 0 180px;
+    padding: 0 50px;
+    overflow: auto;
+}
+
+@media print {
+    #navbar-auto {
+        display: none;
+    }
+
+    .markdown-body {
+        margin-left: 40px;
+        font-size: 12px;
+    }
+
+    .markdown-body blockquote {
+        color: #777 !important;
+        border: none;
+        border-left: 4px solid #ddd;
+        font-size: 12px;
+    }
+
+    .markdown-body blockquote * {
+        color: #777 !important;
+    }
+
+    .markdown-body code {
+        color: red !important;
+    }
+}
+
+#navbar-auto {
+    width: 180px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    padding-right: 5px;
+    box-shadow: 2px 0 3px #bbb;
+    -webkit-box-shadow: 2px 0 3px #bbb;
+    overflow: scroll;
+    background-color: #fff;
+    border-right: 2px solid #eee; 
+}
+
+#navbar-auto ul{
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+    padding-top: 10px;
+}
+
+
+.nav {
+    padding-left: 0px;
+}
+
+#navbar-auto .nav > li > a {
+    padding: 0;
+    padding-left: 6px;
+}
+
+#navbar-auto li{
+    height: 28px; 
+}
+
+#navbar-auto li.active a {
+    color: #f66;
+    border-left-color: #f66;
+}
+
+
+#navbar-auto a,
+#navbar-auto a:link,
+#navbar-auto a:hover,
+#navbar-auto a:active,
+#navbar-auto a:visited {
+    display: block;
+    overflow: hidden;
+    border-left: 4px solid #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    text-decoration: none;
+    color: #666;
+    font: normal normal normal 14px/28px Arial;
+}
+ 
+
+    </style>
+</head>
+<body class="markdown-body">
+
+
+<script src="../common/d3/d3.min.js">
+
+</script>
+<style type="text/css">
+
+.test::before {
+    display: block;
+    text-align: right;
+    padding-right: 10px;
+    content: 'testing area';
+    color: #bbb;
+}
+
+.test {
+    margin: 15px 0;
+    cursor: pointer;
+    background-color: #eee;
+    border-radius: 5px;
+}
+
+.test p {
+    margin: 0;
+    padding: 0 10px;
+    font-size: 16px;
+    line-height: 30px;
+}
+
+</style>
+<h1> D3 - Data-Driven Documents</h1>
+
+<p>D3.js is a JavaScript library for manipulating documents based on data. D3 helps you bring data to life using HTML, SVG, and CSS. D3’s emphasis on web standards gives you the full capabilities of modern browsers without tying yourself to a proprietary framework, combining powerful visualization components and a data-driven approach to DOM manipulation.</p>
+<p><a href="https://d3js.org">https://d3js.org</a></p>
+<p>D3.js 是个Javascript库，用于操作<code>基于数据的文档</code>。</p>
+<p>使用<code>HTML, SVG, 以及CSS技术</code>，将数据带入生活。专注于Web标准，使用现代浏览器的全部能力。</p>
+<p>D3.js不是一个兼容层，如果浏览器不支持标准，也就无能为力了。</p>
+
+
+<h2> 一、介绍</h2>
+<p>D3允许你将数据绑定至DOM，然后在DOM上展现数据驱动的各类转变。</p>
+<p>举个例子，用D3将一个数字组成的数组生成HTML Table；或者使用同样的数据创建一个交互性强的SVG柱状图。</p>
+<p>D3封装了<code>SVG的创建、CSS应用、样式变换和过渡</code>等功能，提供了各类便利方案，使用D3可以方便、快速的创建各类图形效果。</p>
+
+
+<h2> 二、选择器功能</h2>
+<p>现代浏览器，使用<code>W3C Selectors API</code>，旧浏览器则使用<code>Sizzle</code>提供的功能。了解jQuery或者Prototype的人会觉得D3提供的Selector非常熟悉。</p>
+<pre><code>d3.select('#test_1').on('click', function(){
+    d3.selectAll('#test_1 p').style('color', 'red');
+}); </code></pre>
+<p>点击以下阴影区，段落文本颜色发生变化，Selector API和jQuery很相似。</p>
+
+<div id="test_1" class="test">
+<p>段落1</p>
+<p>段落2</p>
+<p>段落3</p>
+<p>段落4</p>
+</div>
+<script>
+
+
+d3.select('#test_1').on('click', function(){
+    d3.selectAll('#test_1 p').style('color', 'red');
+});
+
+
+</script>
+
+
+
+
+<h2> 三、动态属性</h2>
+<p>在D3中，css style, DOM attributes以及其它属性（properties）可以用<code>数据函数</code>来表示。别看这挺简单，但这种扩展性带来的好处非常强大。比如<code>d3.geo.path</code>函数，将geographic坐标转换成SVG路径数据。D3提供了很多内建的可复用函数以及函数工厂，比如用于面积(area)、直线(line)、饼图(pie charts)的图形原语。</p>
+
+
+
+<h3> 3.1 例子：随机颜色</h3>
+<p>点击以下阴影区域获取随机文本颜色：</p>
+
+<div id="test_2" class="test">
+<p>随机颜色1</p>
+<p>随机颜色2</p>
+<p>随机颜色3</p>
+</div>
+<script>
+
+
+d3.select('#test_2').on('click', function(){
+    d3.selectAll('#test_2 p').style('color', function(){
+        return 'hsl(' + Math.random() * 360 + ',100%,50%)';
+    });
+});
+
+
+</script>
+<pre><code>d3.select('#test_2').on('click', function(){
+    d3.selectAll('#test_2 p').style('color', function(){
+        return 'hsl(' + Math.random() * 360 + ',100%,50%)';
+    });
+});         </code></pre>
+<h3> 3.2 例子：交替背景颜色</h3>
+<p>点击以下阴影区域交替设置奇偶节点的灰色背景色。</p>
+
+<div id="test_3" class="test">
+<p>第1行</p>
+<p>第2行</p>
+<p>第3行</p>
+<p>第4行</p>
+<p>第5行</p>
+</div>
+<script>
+
+
+var _switch = 1;
+d3.select('#test_3').on('click', function(){
+    _switch = 1 - _switch;
+    d3.selectAll('#test_3 p').style('background-color', function(d, i){
+        var oddColor = _switch ? '#fff' : '#eee';
+        var evenColor = _switch ? '#eee' : '#fff';
+        console.log(d, i);
+        return i % 2 ? evenColor : oddColor;
+    });
+});
+
+
+</script>
+
+<pre><code>var _switch = 1;
+d3.select('#test_3').on('click', function(){
+    _switch = 1 - _switch;
+    d3.selectAll('#test_3 p').style('background-color', function(d, i){
+        var oddColor = _switch ? '#fff' : '#eee';
+        var evenColor = _switch ? '#eee' : '#fff';
+        console.log(d, i);
+        return i % 2 ? evenColor : oddColor;
+    });
+}); </code></pre>
+<p>此时打开console，可以查看到数据绑定的一些信息：</p>
+<pre><code>undefined 0
+undefined 1
+undefined 2
+undefined 3
+undefined 4 </code></pre>
+<ol><li>每一个DOM节点，由于未进行数据绑定，所以数据值都为<code>undefined</code></li>
+<li>节点的索引值，<code>下标从0开始</code>(zero-beased)</li></ol>
+<h3> 3.3 例子：递增文本字号</h3>
+<p>点击以下阴影区域，设置每行文本的字体大小：</p>
+
+<div id="test_4" class="test">
+<p>第1行文本</p>
+<p>第2行文本</p>
+<p>第3行文本</p>
+<p>第4行文本</p>
+<p>第5行文本</p>
+<p>第6行文本</p>
+</div>
+<script>
+
+
+d3.select('#test_4').on('click', function(){
+    d3.selectAll('#test_4 p')
+        .data([12, 14, 16, 18, 20, 22])
+        .style('font-size', function(d){
+            return d + 'px';
+    });
+});
+
+
+</script>
+
+<pre><code>d3.select('#test_4').on('click', function(){
+    d3.selectAll('#test_4 p')
+        .data([12, 14, 16, 18, 20, 22])
+        .style('font-size', function(d){
+            return d + 'px';
+    });
+}); </code></pre>
+<p>使用<code>data方法</code>进行数据绑定，动态属性值的计算通常和绑定值相关。</p>
+
+
+
+
+
+<h2> 四、进入&退出选择器</h2>
+<blockquote><p> 使用D3的<code>enter</code>, <code>exit</code>选择器，可以为刚输入的数据创建新节点，以及移除不再需要的节点。</p></blockquote><p>紧跟selection后面的data方法，会将数组内的数据和selection中的节点一一对应起来。如果节点比提供的数据少，那么额外数据将组成输入选择区(enter selection)，可以在输入选择区中使用append方法添加节点。</p>
+<p>如果节点比提供的数据多，那么额外的节点将组成退出选择区，可以在调用exit方法后调用remove方法移除无用节点。</p>
+<p>一个数据驱动过程分为三个部分，update, enter, exit：</p>
+<ul><li>update阶段更新已有节点的状态</li>
+<li>enter阶段添加新节点并初始化状态</li>
+<li>exit阶段对无用节点（无数据对应的节点）进行移除操作</li></ul>
+<p>enter选区和exit选区<code>总是在update阶段定义</code>。enter选区只定义了以下操作：append, insert, select以及call，在对enter选区做更新前需要使用这些操作先进行实例化操作。</p>
+
+<p>比如一个常用的操作过程如下：</p>
+<pre><code>var update_sel = svg.selectAll("circle").data(data)
+update_sel.attr(/* operate on old elements only */)
+update_sel.enter().append("circle").attr(/* operate on new elements only */)
+update_sel.attr(/* operate on old and new elements */)
+update_sel.exit().remove() /* complete the enter-update-exit pattern */  </code></pre>
+<p><code>关于Update Selection</code>：</p>
+<blockquote><p> The result of the data method is the <code>update selection</code>; this represents the selected DOM elements that were successfully bound to the specified data elements. The update selection <code>also contains a reference to the enter and exit selections</code>, for adding and removing nodes in correspondence with data.</p></blockquote><p>selection.data()返回update selection，该selection同时包含enter选区和exit选区，<code>只能在update selection对象上使用enter()和exit()</code>。</p>
+<p>以下例子，演示这些选择器的使用，按序号点击：</p>
+
+
+<style type="text/css">
+
+#test_5_btn_container {
+    margin: 15px 0;
+}
+
+</style>
+<div id="test_5" class="test">
+<p>第1行已有文本</p>
+<p>第2行已有文本</p>
+<p>第3行已有文本</p>
+</div>
+<div id="test_5_btn_container">
+<button>1. update</button>
+<button>2. enter</button>
+<button>3. update</button>
+<button>4. exit</button>
+<button>5. remove all (update & exit)</button>
+</div>
+<script>
+
+
+(function(){
+
+var btnContainer = d3.select('#test_5_btn_container');
+var p = null;
+
+// 1. update
+btnContainer.select('button:nth-child(1)')
+    .on('click', function(){
+        p = d3.select('#test_5')
+            .selectAll('p')
+            .data([12, 14, 16, 18, 20, 22])
+            .style('font-size', function(d){
+                return d + 'px';
+            })
+        ;
+    });
+
+// 2. enter
+btnContainer.select('button:nth-child(2)')
+    .on('click', function(){
+        if(!p) return;
+        p.enter()
+            .append('p')
+            .text(function(d){
+                return 'I\'m number ' + d + '!';
+            })
+        ;
+    });
+
+// 3. update
+btnContainer.select('button:nth-child(3)')
+    .on('click', function(){
+        if(!p) return;
+        p
+            .style('font-size', function(d){
+                return d + 'px';
+            })
+        ;
+    });
+
+// 4. exit
+btnContainer.select('button:nth-child(4)')
+    .on('click', function(){
+        if(!p) return;
+        p
+            .exit()
+            .remove();
+        ;
+    });
+
+// 5. remove all: update & exit
+btnContainer.select('button:nth-child(5)')
+    .on('click', function(){
+        if(!p) return;
+        p.data([])      // 清空数据绑定，不能不传参数，需要传空数组
+            .exit()
+            .remove();
+        ;
+    });
+
+})();
+
+
+</script>
+<pre><code>(function(){
+
+var btnContainer = d3.select('#test_5_btn_container');
+var p = null;
+
+// 1. update
+btnContainer.select('button:nth-child(1)')
+    .on('click', function(){
+        p = d3.select('#test_5')
+            .selectAll('p')
+            .data([12, 14, 16, 18, 20, 22])
+            .style('font-size', function(d){
+                return d + 'px';
+            })
+        ;
+    });
+
+// 2. enter
+btnContainer.select('button:nth-child(2)')
+    .on('click', function(){
+        if(!p) return;
+        p.enter()
+            .append('p')
+            .text(function(d){
+                return 'I\'m number ' + d + '!';
+            })
+        ;
+    });
+
+// 3. update
+btnContainer.select('button:nth-child(3)')
+    .on('click', function(){
+        if(!p) return;
+        p
+            .style('font-size', function(d){
+                return d + 'px';
+            })
+        ;
+    });
+
+// 4. exit
+btnContainer.select('button:nth-child(4)')
+    .on('click', function(){
+        if(!p) return;
+        p
+            .exit()
+            .remove();
+        ;
+    });
+
+// 5. remove all: update &amp; exit
+btnContainer.select('button:nth-child(5)')
+    .on('click', function(){
+        if(!p) return;
+        p.data([])      // 清空数据绑定，不能不传参数，需要传空数组
+            .exit()
+            .remove();
+        ;
+    });
+
+})();     </code></pre>
+<h2> 五、变换( transformation )</h2>
+<p>使用CSS3 Transformation</p>
+
+
+
+<h2> 六、过渡( transitions )</h2>
+<p>提供了封装，支持补间( tweening )动画，允许使用各类渐变函数(elastic, cubic-in-out, linear等)。</p>
+
+
+<h3> 6.1 例子：背景色、文字颜色过渡动画</h3>
+
+<div id="test_6" class="test">
+<p>点击我，你将会看到看到</p>
+<p>1. 背景色变黑</p>
+<p>2. 文字颜色变白</p>
+</div>
+<script>
+
+
+d3.select('#test_6').on('click', function(){
+    d3.select('#test_6').transition()
+        .style('background-color', 'black')
+        .style('color', 'white');
+});
+
+
+</script>
+
+
+<pre><code>d3.select('#test_6').on('click', function(){
+    d3.select('#test_6').transition()
+        .style('background-color', 'black')
+        .style('color', 'white');
+});  </code></pre>
+<h3> 6.2 例子：随机色球分布</h3>
+
+
+<div id="test_7" class="test">
+<p>点击查看随机分布的彩色球体，可多次点击</p>
+<svg></svg>
+</div>
+<style type="text/css">
+
+#test_7 svg {
+    height: 30px;
+    width: 100%;
+    background-color: #eee;
+}
+
+</style>
+<script>
+
+
+(function(){
+
+function random(min, max){
+    return min + Math.random() * ( max - min );
+}
+
+function randomColor() {
+    return [
+        'hsl(' + 360 * Math.random()
+        , 100 * Math.random() + '%'
+        , 100 * Math.random() + '%)'
+        ].join(',');
+}
+
+function randomData(min, max, size) {
+    var data = [];
+    for ( var i=0; i<size; i++ ) {
+        data.push(random(min, max));
+    }
+    return data;
+}
+
+
+var initial = 1;
+
+d3.select('#test_7').on('click', function(){
+    var scale = 0.5;
+    var svg = d3.select('#test_7 svg');
+    var tip = d3.select('#test_7 p');
+    var selection;
+    var w = parseInt(d3.select('#test_7').style('width'));
+
+    tip.style('display', 'none');
+
+    function set(selection) {
+        selection
+            .attr('r', function(d) { return random(50, 100) * scale; })
+            .attr('cx', function(d) { return random(100, w - 100); })
+            .attr('cy', function(d) { return random(100, 300); })
+            .style('fill', function() { return randomColor(); })
+        ;
+    }
+
+    if(initial) {
+        svg
+            .transition()
+            .duration(750)
+            .style({
+                height: '400px'
+            })
+        ;
+
+        selection =
+            svg
+            .selectAll('circle')
+            .data(randomData(30, 150, 20))
+            .enter()
+            .append('circle')
+        ;
+
+        initial = 0;
+    }
+    else {
+        selection =
+            svg
+            .selectAll('circle')
+            .transition()
+            .duration(750)
+            .delay(function(d, i) { return i * 100 * Math.random(); })
+        ;
+    }
+
+    set(selection);
+});
+
+})();
+
+
+</script>
+
+<pre><code>(function(){
+
+function random(min, max){
+    return min + Math.random() * ( max - min );
+}
+
+function randomColor() {
+    return [
+        'hsl(' + 360 * Math.random()
+        , 100 * Math.random() + '%'
+        , 100 * Math.random() + '%)'
+        ].join(',');
+}
+
+function randomData(min, max, size) {
+    var data = [];
+    for ( var i=0; i&lt;size; i++ ) {
+        data.push(random(min, max));
+    }
+    return data;
+}
+
+
+var initial = 1;
+
+d3.select('#test_7').on('click', function(){
+    var scale = 0.5;
+    var svg = d3.select('#test_7 svg');
+    var selection;
+    var w = parseInt(d3.select('#test_7').style('width'));
+
+    function set(selection) {
+        selection
+            .attr('r', function(d) { return random(50, 100) * scale; })
+            .attr('cx', function(d) { return random(100, w - 100); })
+            .attr('cy', function(d) { return random(100, 300); })
+            .style('fill', function() { return randomColor(); })
+        ;
+    }
+
+    if(initial) {
+        svg
+            .transition()
+            .duration(750)
+            .style({
+                height: '400px'
+            })
+        ;
+
+        selection =
+            svg
+            .selectAll('circle')
+            .data(randomData(30, 150, 20))
+            .enter()
+            .append('circle')
+        ;
+
+        initial = 0;
+    }
+    else {
+        selection =
+            svg
+            .selectAll('circle')
+            .transition()
+            .duration(750)
+            .delay(function(d, i) { return i * 100 * Math.random(); })
+        ;
+    }
+
+    set(selection);
+});
+
+})();   </code></pre>
+<h3> 6.3 </h3>
+
+</body>
+</html>
+<script type="text/javascript" src="http://123.56.89.145/docs/markdown_res/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="http://123.56.89.145/docs/markdown_res/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://123.56.89.145/docs/markdown_res/js/scrollspy.js"></script>
+<script type="text/javascript">
+(function(){
+document.title = $('h1').html() || '文档标题';    
+})();
+</script>
