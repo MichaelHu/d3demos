@@ -1,5 +1,7 @@
 # D3.js API
 
+> <https://github.com/mbostock/d3/wiki/API-Reference>
+
 
 
 <script src="../common/d3/d3.min.js"></script>
@@ -953,8 +955,258 @@ d3.select('#test_50_btn_4').on('click', function(){
 
 ## SVG
 
+参考：<a href="./svg.md.preview.html">SVG</a>
+
+path的d属性生成比较麻烦，需要各类构造器。
+
 ### d3.svg.line
 
+line构造器：
+
+
+    // 默认构造器
+    var line = d3.svg.line();
+    var def = line([ [20, 50] ]);
+
+    // 自定义存取器的构造器
+    var line = d3.svg.line()
+            .x(function(d){ return d.x; })
+            .y(function(d){ return d.y; })
+            ;
+    var def = line([ {x:20, y:50} ]);
+
+
+
+<div id="test_60" class="test">
+<div class="test-container"></div>
+<div class="test-console"></div>
+<div class="test-panel">
+<button id="test_60_btn_1">line([ [20,50] ])</button>
+<button id="test_60_btn_2">line([ {x:20,y:50} ])</button>
+</div>
+</div>
+
+<script>
+(function(){
+
+
+var $cont = d3.select('#test_60 .test-container')
+    , $console = d3.select('#test_60 .test-console');
+
+var show = Display.show($cont, $console);
+var append_show = Display.append_show($cont, $console);
+
+d3.select('#test_60_btn_1').on('click', function(){
+    var line = d3.svg.line();
+    var def = line([[20, 50]]);
+    show(def);
+});
+
+d3.select('#test_60_btn_1').on('click', function(){
+    var line = d3.svg.line();
+    var def = line([[20, 50]]);
+    show(def);
+});
+
+d3.select('#test_60_btn_2').on('click', function(){
+    var line = d3.svg.line()
+            .x(function(d){ return d.x; })
+            .y(function(d){ return d.y; })
+            ;
+    var def = line([ {x:20, y:50}]);
+    show(def);
+});
+
+
+
+})();
+</script>
+
+
+
+
+
+
+
+### line.interpolate([interpolate])
+
+插值模式，预定义的有13种：
+
+linear, linear-closed, step, step-before, step-after, basis, basis-open, basis-closed,
+bundle, cardinal, cardinal-open, cardinal-closed, monotone
+
+可以通过字符串方式指定插值模式：
+
+    line.interpolate('linear-closed');
+
+如果interpolate为函数，则该函数作为构建路径字符串的接口函数，也即自定义interpolate函数。
+
+    var line = d3.svg.line()
+            .interpolate(interpolate)
+        , data = [
+            [20,50]
+            , [100,130]
+            , [220,200]
+            , [400,80]
+            , [350,180]
+        ]
+        ;
+
+    var svg = d3.select('#test_70_svg')
+        , upSel = svg.selectAll('path')
+            .data([ data ])
+            ; 
+
+    if(initial) {
+        upSel
+            .enter()
+            .append('path')
+            ;
+        initial = 0;
+    }
+
+    upSel.exit().remove();
+
+    upSel
+        .attr('d', function(d){ return line(d); })
+        .style({
+            'fill': '#fff'
+            , 'stroke': 'red'
+        })
+        ;
+
+
+以下Demo展示这13种插值函数的表现：
+
+<style type="text/css">
+#test_70_svg {
+    border: 1px dashed #bbb;
+}
+</style>
+
+<div id="test_70" class="test">
+<div class="test-panel">
+<select id="test_70_select" class="form-control">
+<option value="linear">linear</option>
+<option value="linear-closed">linear-closed</option>
+<option value="step">step</option>
+<option value="step-before">step-before</option>
+<option value="step-after">step-after</option>
+<option value="basis">basis</option>
+<option value="basis-open">basis-open</option>
+<option value="basis-closed">basis-closed</option>
+<option value="bundle">bundle</option>
+<option value="cardinal">cardinal</option>
+<option value="cardinal-open">cardinal-open</option>
+<option value="cardinal-closed">cardinal-closed</option>
+<option value="monotone">monotone</option>
+</select>
+</div>
+<div class="test-console"></div>
+<div class="test-container">
+<svg id="test_70_svg" width="100%" height="300"></svg>
+</div>
+</div>
+
+<script>
+(function(){
+
+
+var $cont = d3.select('#test_70 .test-container')
+    , $console = d3.select('#test_70 .test-console');
+
+var show = Display.show($cont, $console);
+var append_show = Display.append_show($cont, $console);
+
+var initial = 1;
+
+function render( interpolate ) {
+
+    var line = d3.svg.line()
+            .interpolate(interpolate)
+        , data = [
+            [20,50]
+            , [100,130]
+            , [220,200]
+            , [400,80]
+            , [350,180]
+            , [420,220]
+        ]
+        ;
+
+    show('interpolate mode: ' + line.interpolate());
+    var svg = d3.select('#test_70_svg')
+        , upSel = svg.selectAll('path')
+            .data([ data ])
+        , upSelRect = svg.selectAll('rect')
+            .data(data)
+        , upSelText = svg.selectAll('text')
+            .data(data)
+            ; 
+
+    if(initial) {
+        upSel
+            .enter()
+            .append('path')
+            ;
+        upSelRect
+            .enter()
+            .append('rect')
+        upSelText
+            .enter()
+            .append('text')
+        initial = 0;
+    }
+
+    upSel.exit().remove();
+    upSelRect.exit().remove();
+    upSelText.exit().remove();
+
+    upSel
+        .attr('d', function(d){ return line(d); })
+        .style({
+            'fill': '#fff'
+            , 'stroke': 'red'
+        })
+        ;
+
+    upSelRect
+        .attr('x', function(d){ return d[0] - 3; })
+        .attr('y', function(d){ return d[1] - 3; })
+        .attr('width', 7)
+        .attr('height', 7)
+        .style({
+            'fill': '#8c564b'
+            , 'stroke-width': 1
+            , 'stroke': '#000'
+        })
+
+    upSelText
+        .attr('x', function(d){ return d[0] + 10; })
+        .attr('y', function(d){ return d[1] + 6; })
+        .text(function(d, i){ return '[ ' + d[0] + ', ' + d[1] + ' ] (' + i + ')'; })
+        .style({
+            'fill': '#8ca252'
+            , 'stroke-width': 0
+            , 'font-size': '12px' 
+        })
+        ;
+
+}
+
+d3.select('#test_70_select').on('change', function(e){
+    var interpolate = this.value;
+    render(interpolate);
+});
+
+render('linear');
+
+
+
+})();
+</script>
+
+### other
 
 
 

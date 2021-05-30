@@ -1,3 +1,10 @@
+# SVG
+
+> SVG 意为可缩放矢量图形（Scalable Vector Graphics）。
+
+> <https://www.w3.org/TR/SVG11/Overview.html>
+
+
 <style type="text/css">
 .test::before {
     display: block;
@@ -40,11 +47,8 @@
 
 </style>
 
-# SVG
 
-> SVG 意为可缩放矢量图形（Scalable Vector Graphics）。
 
-> <http://www.w3.org/TR/SVG11/paths.html>
 
 
 ## 一、前言
@@ -352,10 +356,101 @@ cx，cy的值默认为0。
 
 
 
+### 3.7 文本
+
+> <https://www.w3.org/TR/SVG11/text.html>
 
 
-### 3.6 路径
+<svg width="100%" height="200" style="border: 1px dashed #bbb;">
 
+<text 
+    x="100"
+    y="10"
+    dx="10"
+    dy="60"
+    rotate="15"
+    textLength="600"
+    lengthAdjust="spacing"
+    style="
+        fill:#ff7f0e;
+        stroke:#1f77b4;
+        stroke-width:1;
+        font-size:60px;
+    ">SVG text
+</text>
+
+<text 
+    x="100"
+    y="80"
+    dx="10"
+    dy="60"
+    rotate="15"
+    textLength="600"
+    lengthAdjust="spacingAndGlyphs"
+    style="
+        fill:#ff7f0e;
+        stroke:#1f77b4;
+        stroke-width:1;
+        font-size:60px;
+    ">SVG text
+</text>
+
+<rect
+    x="97"
+    y="7"
+    width="7"
+    height="7"
+    style="
+        fill: #8c564b;
+        cursor: move;
+        fill-opacity: 1;
+        stroke-width: 1;
+        stroke: rgb(0,0,0);
+        stroke-opacity: 1;
+    " />
+
+</svg>
+
+
+代码如下：
+
+    <text 
+        x="100"
+        y="10"
+        dx="10"
+        dy="60"
+        rotate="15"
+        textLength="600"
+        lengthAdjust="spacing"
+        style="
+            fill:#ff7f0e;
+            stroke:#1f77b4;
+            stroke-width:1;
+            font-size:60px;
+        ">SVG text
+    </text>
+
+关键属性：
+* textLength：文本长度
+* lengthAdjust属性取值：`spacing|spacingAndGlyphs`，以上Demo正是展示了两种的不同。
+* x, y： `(left, bottom)`的坐标
+* dx, dy：偏移量
+
+svg的text标签没有以下类似的属性（<http://stackoverflow.com/questions/15500894/background-color-of-text-in-svg>）：
+
+    border:1px solid #c5b0d5;
+    background-color:red;
+
+如果确实需要，只能模拟。比如绘制一个下层的矩形，并填充颜色。
+
+
+
+
+
+
+### 3.8 路径
+
+> <http://www.w3.org/TR/SVG11/paths.html>
 
 指令：
 
@@ -532,38 +627,6 @@ cx，cy的值默认为0。
 <script src="./static/js/svg/svg-path-curveto-demo3.js"></script>
 
 
-
-
-<svg width="100%" height="500">
-<path d="M153 334
-    C153 334 151 334 151 334
-    C151 339 153 344 156 344
-    C164 344 171 339 171 334
-    C171 322 164 314 156 314
-    C142 314 131 322 131 334
-    C131 350 142 364 156 364
-    C175 364 191 350 191 334
-    C191 311 175 294 156 294
-    C131 294 111 311 111 334
-    C111 361 131 384 156 384
-    C186 384 211 361 211 334
-    C211 300 186 274 156 274
-    "
-    style="
-        fill:white;
-        stroke:red;
-        stroke-width:2
-        "
-    />
-</svg>
-
-
-<svg width="100%" height="300">
-<path 
-    stroke="#EFF4F1" stroke-miterlimit="10" d="
-        M53.861,99.117h2.786l8.179,7.089l9.633,4.544l8.725,2.182l9.814-0.909
-        "/>
-</svg>
 
 
 gun
